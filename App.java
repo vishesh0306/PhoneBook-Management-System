@@ -77,7 +77,7 @@ public class App {
                             name = scanner.nextLine();
                             
                             System.out.println();
-                            Operations.printDetailsByName(name);
+                            Operations.serchedDetails(name);
                             System.out.println();
 
                             break;

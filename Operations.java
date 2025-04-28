@@ -68,6 +68,34 @@ public class Operations {
         return -1;
     }
 
+    public static void printDetails(String name){
+        boolean flag = false;
+        for(int i = 0; i < DataBase.contacts.length; i++){
+            if(DataBase.contacts[i] != null){
+                if(DataBase.contacts[i].getName().toLowerCase().startsWith(name.toLowerCase())){
+                    if (!flag) {
+                        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Contact Found!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");            
+                    }
+                    flag = true;
+                    Contact con = DataBase.contacts[i];
+                    String email = con.getEmail()!= null ? con.getEmail() : "-";
+                    System.out.println("Name: " + con.getName() + "     " + "Phone No.: " + con.getPhoneNo()  + "     " + "Email: " + email);
+                    
+                }
+            }
+        }
+        if(!flag){
+            System.out.println();
+            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+            System.out.println("Contact name "+ name + " not found in contacts");
+
+        }
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+            System.out.println();
+            System.out.println();
+    }
+
     public static int searchByPhoneNumber(long phoneNo){
 
 
@@ -81,6 +109,12 @@ public class Operations {
         }
         return -1;
         // return "Contact not found";
+    }
+
+    public static void serchedDetails(String name){
+        // int nameIndex = searchByName(name);
+        printDetails(name);
+
     }
 
 
