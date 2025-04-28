@@ -1,3 +1,5 @@
+import java.util.Iterator;
+
 public class Operations {
 
     // private static boolean startOperations;
@@ -5,21 +7,22 @@ public class Operations {
     public static Contact addContact(String name, long phoneNo){
         Contact con = new Contact(name, phoneNo);
 
-        if(DataBase.contactCount < DataBase.contacts.length){
-            DataBase.contacts[DataBase.contactCount] = con;
+        // if(DataBase.contactCount < DataBase.contacts.size()){
+            // DataBase.contacts[DataBase.contactCount] = con;
+            DataBase.contacts.add(con);
             DataBase.contactCount++;
 
             System.out.println();
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
             System.out.println("Contact added successfully!!");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        }
-        else{
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("Can't add new contact, memory is full!");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        // }
+        // else{
+        //     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        //     System.out.println("Can't add new contact, memory is full!");
+        //     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 
-        }
+        // }
 
         System.out.println();
         System.out.println();
@@ -30,8 +33,9 @@ public class Operations {
     public static void addContact(String name, long phoneNo, String email){
         Contact con = new Contact(name, phoneNo, email);
 
-        if(DataBase.contactCount < DataBase.contacts.length){
-            DataBase.contacts[DataBase.contactCount] = con;
+        // if(DataBase.contactCount < DataBase.contacts.length){
+            // DataBase.contacts[DataBase.contactCount] = con;
+            DataBase.contacts.add(con);
             DataBase.contactCount++;
 
             System.out.println();
@@ -41,15 +45,15 @@ public class Operations {
             System.out.println();
             System.out.println();
 
-        }
-        else{
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println("Can't add new contact, memory is full!");
-            System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.println();
-            System.out.println();
+        // }
+        // else{
+        //     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        //     System.out.println("Can't add new contact, memory is full!");
+        //     System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        //     System.out.println();
+        //     System.out.println();
 
-        }
+        // }
 
         
     }
@@ -57,9 +61,9 @@ public class Operations {
 
 
     public static int searchByName(String name){
-        for(int i = 0; i < DataBase.contacts.length; i++){
-            if(DataBase.contacts[i] != null){
-                if(DataBase.contacts[i].getName().toLowerCase().equals(name.toLowerCase())){
+        for(int i = 0; i < DataBase.contacts.size(); i++){
+            if(DataBase.contacts.get(i) != null){
+                if(DataBase.contacts.get(i).getName().toLowerCase().equals(name.toLowerCase())){
                     return i;
                     // return DataBase.contacts[i].getPhoneNo();
                 }
@@ -70,14 +74,14 @@ public class Operations {
 
     public static void printDetails(String name){
         boolean flag = false;
-        for(int i = 0; i < DataBase.contacts.length; i++){
-            if(DataBase.contacts[i] != null){
-                if(DataBase.contacts[i].getName().toLowerCase().startsWith(name.toLowerCase())){
+        for(int i = 0; i < DataBase.contacts.size(); i++){
+            if(DataBase.contacts.get(i) != null){
+                if(DataBase.contacts.get(i).getName().toLowerCase().startsWith(name.toLowerCase())){
                     if (!flag) {
                         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Contact Found!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");            
                     }
                     flag = true;
-                    Contact con = DataBase.contacts[i];
+                    Contact con = DataBase.contacts.get(i);
                     String email = con.getEmail()!= null ? con.getEmail() : "-";
                     System.out.println("Name: " + con.getName() + "     " + "Phone No.: " + con.getPhoneNo()  + "     " + "Email: " + email);
                     
@@ -100,8 +104,8 @@ public class Operations {
 
 
         for(int i = 0; i < DataBase.contactCount; i++){
-            if(DataBase.contacts[i] != null){
-                if(DataBase.contacts[i].getPhoneNo() == phoneNo){
+            if(DataBase.contacts.get(i) != null){
+                if(DataBase.contacts.get(i).getPhoneNo() == phoneNo){
                     return i;
                     // return phoneNo + " is of : " + DataBase.contacts[i].getName();
                 }
@@ -123,7 +127,7 @@ public class Operations {
         int nameIndex = searchByName(name);
 
         if(nameIndex != -1){
-            Contact con = DataBase.contacts[nameIndex];
+            Contact con = DataBase.contacts.get(nameIndex);
             String email = con.getEmail()!= null ? con.getEmail() : "-";
 
             System.out.println();
@@ -150,7 +154,7 @@ public class Operations {
         int nameIndex = searchByPhoneNumber(phoneNo);
 
         if(nameIndex != -1){
-            Contact con = DataBase.contacts[nameIndex];
+            Contact con = DataBase.contacts.get(nameIndex);
             String email = con.getEmail()!= null ? con.getEmail() : "-";
 
             System.out.println();
@@ -178,13 +182,13 @@ public class Operations {
 
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ALL CONTACTS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         
-        if(DataBase.contacts.length == 0){
+        if(DataBase.contacts.size() == 0){
             System.out.println("Empty Contact List");
             System.out.println();
         }
         
-        for(int i = 0; i < DataBase.contacts.length; i++){
-            Contact con = DataBase.contacts[i];
+        for(int i = 0; i < DataBase.contacts.size(); i++){
+            Contact con = DataBase.contacts.get(i);
             if(con != null){
                 String email = con.getEmail()!= null ? con.getEmail() : "-";
                 System.out.println("Name: " + con.getName() + "     " + "Phone No.: " + con.getPhoneNo()  + "     " + "Email: " + email);
@@ -200,7 +204,7 @@ public class Operations {
     public static void editName(String oldName, String newName){
         int nameIndex = searchByName(oldName.toLowerCase());
         if(nameIndex != -1){
-            DataBase.contacts[nameIndex].setName(newName);
+            DataBase.contacts.get(nameIndex).setName(newName);
             System.out.println();
 
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
@@ -220,7 +224,7 @@ public class Operations {
     public static void editPhoneNumber(long oldPhoneNo, long newPhoneNo){
         int phoneIndex = searchByPhoneNumber(oldPhoneNo);
         if(phoneIndex != -1){
-            DataBase.contacts[phoneIndex].setPhoneNo(newPhoneNo);
+            DataBase.contacts.get(phoneIndex).setPhoneNo(newPhoneNo);
             System.out.println();
 
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
@@ -243,7 +247,8 @@ public class Operations {
     public static void deleteContact(String name){
         int nameIndex = searchByName(name.toLowerCase());
         if(nameIndex != -1){
-            DataBase.contacts[nameIndex] = null;
+            // DataBase.contacts[nameIndex] = null;
+            DataBase.contacts.remove(nameIndex);
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
             System.out.println("Contact " + name + " deleted successfully");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
@@ -262,7 +267,8 @@ public class Operations {
     public static void deleteContact(long phoneNo){
         int phoneIndex = searchByPhoneNumber(phoneNo);
         if(phoneIndex != -1){
-            DataBase.contacts[phoneIndex] = null;
+            // DataBase.contacts[phoneIndex] = null;
+            DataBase.contacts.remove(phoneIndex);
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
             System.out.println("Contact " + phoneNo + " deleted successfully");
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
@@ -293,7 +299,7 @@ public class Operations {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
             System.out.println("\t\t\t Calling  " + phoneNo);
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
-            DataBase.callLogs[DataBase.callLogsCount] = DataBase.contacts[nameIndex];
+            DataBase.callLogs.add(DataBase.contacts.get(nameIndex));
             DataBase.callLogsCount++;
         }
 
@@ -311,7 +317,7 @@ public class Operations {
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
             System.out.println("\t\t\t Calling  " + name);
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
-            DataBase.callLogs[DataBase.callLogsCount] = DataBase.contacts[nameIndex];
+            DataBase.callLogs.add( DataBase.contacts.get(nameIndex));
             DataBase.callLogsCount++;
         }
 
@@ -335,10 +341,13 @@ public class Operations {
         }
         else{
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
-            Contact[] contact = DataBase.callLogs;
-            for(int i = 0; i < callCount; i++){
-                System.out.println("Name: " + contact[i].getName()+ "\tPhone number: " + contact[i].getPhoneNo());
+
+            Iterator<Contact> itr = DataBase.callLogs.iterator();
+            while (itr.hasNext()) {
+                Contact con = itr.next();
+                System.out.println("Name: " + con.getName()+ "\tPhone number: " + con.getPhoneNo());
             }
+
             System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"); 
         }
     }
@@ -349,7 +358,7 @@ public class Operations {
         int nameIndex = searchByName(name);
 
         if(nameIndex != -1){
-            DataBase.favContacts[DataBase.favContactsCount] = DataBase.contacts[nameIndex];
+            DataBase.favContacts.add(DataBase.contacts.get(nameIndex));
         }
     }
 

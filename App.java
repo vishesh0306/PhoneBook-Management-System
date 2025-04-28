@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
     
-    Contact[] conList = DataBase.contacts;
+    ArrayList<Contact> conList = DataBase.contacts;
     int conCount = DataBase.contactCount;
 
     static{
