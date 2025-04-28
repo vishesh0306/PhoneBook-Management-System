@@ -26,7 +26,7 @@ public class App {
 
             System.out.println("Press the numbers 1,2,3,4,5,6 to perform the following operations: ");
             System.out.println();
-            System.out.println("  1: Add a new contact \n  2: Search for a contact in PhoneBook \n  3: Edit a contact in PhoneBook \n  4: Delete a contact in PhoneBook \n  5: Display all contacts in the PhoneBook \n  6: Exit from PhoneBook");
+            System.out.println("  1: Add a new contact \n  2: Search for a contact in PhoneBook \n  3: Edit a contact in PhoneBook \n  4: Delete a contact in PhoneBook \n  5: Display all contacts in the PhoneBook \n  6: Call an existing contact \n  7: Print call history  \n  8: Exit from PhoneBook");
             
             System.out.println();
             System.out.print("Enter your choice: ");
@@ -93,10 +93,9 @@ public class App {
                             Operations.printDetailsByPhoneNumber(phoneNo);
                             System.out.println();
 
-                            break;
-                            
+                            break; 
                         }
-                                      
+
                         default: {
                             System.out.println("Incorrect choice input");
                             break;
@@ -173,14 +172,42 @@ public class App {
                 }
                
                
-               
-               
                 case 5:{
                     Operations.getAllContacts();
                     break;
                 }
 
+
                 case 6:{
+                    System.out.print("Enter contact name or contact number to call: ");
+                    scanner.nextLine();
+                    // System.out.println();
+
+                    String input = scanner.nextLine();
+
+                    try {
+                        long number = Long.parseLong(input);
+                        Operations.call(number);
+                        
+                    } 
+                    catch (NumberFormatException e) {
+                        Operations.call(input);
+                    }
+
+                    
+                    break;
+                }
+
+                case 7:{
+
+                    System.out.println("\t\t\tCall History");
+                    Operations.printCallHistory();
+
+                    break;
+                }
+
+
+                case 8:{
                     System.out.println();
                     flag = Operations.end();
                     break;
